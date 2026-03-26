@@ -51,3 +51,24 @@ Projeto institucional para a marca **Rosa Chá**, com foco em posicionamento pre
 
 - O layout da galeria está pronto para receber imagens reais (formatos horizontal, vertical e destaque).
 - Links de WhatsApp/Instagram estão como placeholders e podem ser atualizados facilmente nos templates.
+
+## Deploy no Railway
+
+O projeto está preparado para deploy no Railway com:
+
+- `Procfile` usando `gunicorn`
+- `whitenoise` para servir estáticos
+- leitura de `DATABASE_URL` (Postgres)
+- `collectstatic` no start
+
+### Variáveis de ambiente no Railway
+
+Configure no serviço:
+
+- `SECRET_KEY`
+- `DEBUG=False`
+- `DATABASE_URL` (gerada pelo plugin PostgreSQL)
+- `ALLOWED_HOSTS` (ex.: `.up.railway.app`)
+- `CSRF_TRUSTED_ORIGINS` (ex.: `https://seu-app.up.railway.app`)
+
+Use `.env.example` como referência.
