@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container narrow">
+        <p class="eyebrow">Contato</p>
+        <div class="page-hero-title-with-image">
+            {% if contact_header_image %}
+                <img src="{{ contact_header_image }}" alt="Contato e atendimento Rosa Chá">
+            {% endif %}
+            <h1>Vamos desenhar o seu evento com cuidado e sensibilidade</h1>
+        </div>
+        <p>Compartilhe os detalhes iniciais para criarmos uma proposta alinhada ao seu momento.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container contact-layout" id="formulario">
+        <div class="contact-card">
+            <h2>Solicitar orçamento</h2>
+            <form method="post" class="contact-form" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <small class="form-error">{{ field.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button class="btn btn-dark" type="submit">Enviar mensagem</button>
+            </form>
+        </div>
+        <aside class="contact-aside">
+            <h2>Outros canais</h2>
+            <p>Se preferir, fale conosco diretamente pelos canais abaixo.</p>
+            <ul>
+                <li><strong>WhatsApp:</strong> <a href="https://wa.me/351932079149" target="_blank" rel="noopener">+351 932 079 149</a></li>
+                <li><strong>E-mail:</strong> <a href="mailto:contato@rosachacatering.pt">contato@rosachacatering.pt</a></li>
+                <li><strong>Instagram:</strong> <a href="https://instagram.com" target="_blank" rel="noopener">@rosacha</a></li>
+            </ul>
+            <p class="small-note">Atendimento em horário comercial, com retorno cuidadoso e personalizado.</p>
+        </aside>
+    </div>
+</section>
+{% endblock %}

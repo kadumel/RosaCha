@@ -1,0 +1,17 @@
+<header class="site-header">
+    <div class="container nav-wrap">
+        <a href="{% url 'core:home' %}" class="brand" aria-label="Página inicial Rosa Chá">
+            <img src="/media/Icones/RosaChaLogoSemFundo.png" alt="Rosa Chá">
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu">
+            Menu
+        </button>
+        <nav id="menu" class="site-nav">
+            <a href="{% url 'core:home' %}">Home</a>
+            <a href="{% url 'core:sobre' %}">Sobre</a>
+            <a href="{% url 'core:servicos' %}">Serviços</a>
+            <a href="{% url 'core:galeria' %}">Galeria</a>
+            <a class="btn btn-sm" href="{% url 'core:contato' %}">Orçamento</a>
+        </nav>
+    </div>
+</header>

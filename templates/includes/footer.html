@@ -1,0 +1,31 @@
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div>
+            <h3>Rosa Chá</h3>
+            <p>
+                Experiências de catering com estética autoral, acolhimento e delicadeza para momentos especiais.
+            </p>
+        </div>
+        <div>
+            <h4>Navegação</h4>
+            <ul>
+                <li><a href="{% url 'core:home' %}">Home</a></li>
+                <li><a href="{% url 'core:sobre' %}">Sobre</a></li>
+                <li><a href="{% url 'core:servicos' %}">Serviços</a></li>
+                <li><a href="{% url 'core:galeria' %}">Galeria</a></li>
+                <li><a href="{% url 'core:contato' %}">Contato</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Contato</h4>
+            <ul>
+                <li><a href="https://wa.me/351932079149" target="_blank" rel="noopener">WhatsApp</a></li>
+                <li><a href="mailto:contato@rosachacatering.pt">contato@rosachacatering.pt</a></li>
+                <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; {% now "Y" %} Rosa Chá. Todos os direitos reservados.</p>
+    </div>
+</footer>

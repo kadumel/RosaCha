@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container narrow">
+        <p class="eyebrow">Serviços</p>
+        <div class="page-hero-title-with-image">
+            {% if servicos_header_image %}
+                <img src="{{ servicos_header_image }}" alt="Ícone chá da tarde Rosa Chá">
+            {% endif %}
+            <h1>Soluções elegantes para eventos intimistas</h1>
+        </div>
+        <p>Formatos flexíveis para celebrações com identidade e sofisticação.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container services-list">
+        {% for service in services %}
+            <article class="service-block service-block-media">
+                <div class="service-media">
+                    {% if service.image_url %}
+                        <img src="{{ service.image_url }}" alt="{{ service.titulo }}">
+                    {% else %}
+                        <div class="service-media-fallback" aria-hidden="true"></div>
+                    {% endif %}
+                </div>
+                <div class="service-content">
+                    <div class="title-with-icon">
+                        {% if service.icon_url %}
+                            <img class="feature-icon" src="{{ service.icon_url }}" alt="Ícone {{ service.titulo }}">
+                        {% endif %}
+                        <h2>{{ service.titulo }}</h2>
+                    </div>
+                    <p>{{ service.descricao }}</p>
+                    <ul>
+                        {% for item in service.itens %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a class="text-link" href="{% url 'core:contato' %}">{{ service.cta }}</a>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+{% include 'includes/cta.html' %}
+{% endblock %}

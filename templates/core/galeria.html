@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container narrow">
+        <p class="eyebrow">Galeria</p>
+        <div class="page-hero-title-with-image">
+            {% if gallery_header_image %}
+                <img src="{{ gallery_header_image }}" alt="Orçamento Rosa Chá">
+            {% endif %}
+            <h1>Atmosferas que traduzem delicadeza e refinamento</h1>
+        </div>
+        <p>Layout preparado para receber fotografias reais com diferentes formatos e destaques.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        {% if categorias %}
+            <div class="gallery-filters">
+                <a class="chip{% if not categoria_ativa %} is-active{% endif %}" href="{% url 'core:galeria' %}">Todas as categorias</a>
+                {% for categoria in categorias %}
+                    <a
+                        class="chip{% if categoria_ativa == categoria.slug %} is-active{% endif %}"
+                        href="{% url 'core:galeria' %}?categoria={{ categoria.slug }}"
+                    >
+                        {{ categoria.nome }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if eventos %}
+            <div class="gallery-filters">
+                <a class="chip{% if not evento_ativo %} is-active{% endif %}" href="{% url 'core:galeria' %}{% if categoria_ativa %}?categoria={{ categoria_ativa }}{% endif %}">Todos os eventos</a>
+                {% for evento in eventos %}
+                    <a
+                        class="chip{% if evento_ativo == evento.slug %} is-active{% endif %}"
+                        href="{% url 'core:galeria' %}?evento={{ evento.slug }}{% if categoria_ativa %}&categoria={{ categoria_ativa }}{% endif %}"
+                    >
+                        {{ evento.nome }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if galeria_imagens %}
+            <div class="gallery-grid">
+                {% for item in galeria_imagens %}
+                    <figure class="gallery-item {{ item.formato }}">
+                        <img src="{{ item.imagem.url }}" alt="{{ item.alt_texto|default:item.titulo }}">
+                    </figure>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="gallery-empty">
+                <p>Nenhuma imagem cadastrada ainda. Adicione eventos e imagens no admin para exibir sua galeria.</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% include 'includes/cta.html' %}
+{% endblock %}
