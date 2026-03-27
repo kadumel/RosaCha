@@ -1,3 +1,5 @@
+import re
+
 from django.db import models
 
 
@@ -16,6 +18,35 @@ class Lead(models.Model):
 
     def __str__(self):
         return f'{self.nome} - {self.tipo_evento}'
+
+
+class InformacoesEmpresa(models.Model):
+    nome_empresa = models.CharField(max_length=120, default='Rosa Chá Catering')
+    telefone_whatsapp = models.CharField(max_length=30, default='+351 932 079 149')
+    email_contato = models.EmailField(default='contato@rosachacatering.pt')
+    instagram_url = models.URLField(default='https://instagram.com')
+    instagram_usuario = models.CharField(max_length=80, default='@rosacha')
+    facebook_url = models.URLField(default='https://facebook.com', blank=True)
+    facebook_usuario = models.CharField(max_length=80, default='@rosacha', blank=True)
+    tiktok_url = models.URLField(default='https://tiktok.com', blank=True)
+    tiktok_usuario = models.CharField(max_length=80, default='@rosacha', blank=True)
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Informações da empresa'
+        verbose_name_plural = 'Informações da empresa'
+
+    def __str__(self):
+        return self.nome_empresa
+
+    @property
+    def whatsapp_digits(self):
+        return re.sub(r'\D', '', self.telefone_whatsapp or '')
+
+    @property
+    def whatsapp_url(self):
+        digits = self.whatsapp_digits
+        return f'https://wa.me/{digits}' if digits else '#'
 
 
 class CategoriaGaleria(models.Model):

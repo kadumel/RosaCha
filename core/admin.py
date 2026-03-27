@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 
-from .models import CategoriaGaleria, EventoGaleria, ImagemGaleria, Lead
+from .models import CategoriaGaleria, EventoGaleria, ImagemGaleria, InformacoesEmpresa, Lead
 
 
 class MultipleFileInput(forms.ClearableFileInput):
@@ -59,6 +59,26 @@ class LeadAdmin(admin.ModelAdmin):
     list_filter = ('tipo_evento', 'criado_em')
     search_fields = ('nome', 'email', 'telefone', 'mensagem')
     readonly_fields = ('criado_em',)
+
+
+@admin.register(InformacoesEmpresa)
+class InformacoesEmpresaAdmin(admin.ModelAdmin):
+    list_display = (
+        'nome_empresa',
+        'telefone_whatsapp',
+        'email_contato',
+        'instagram_usuario',
+        'facebook_usuario',
+        'tiktok_usuario',
+        'atualizado_em',
+    )
+    readonly_fields = ('atualizado_em',)
+
+    def has_add_permission(self, request):
+        # Mantem registro unico para facilitar gestao via admin.
+        if InformacoesEmpresa.objects.exists():
+            return False
+        return super().has_add_permission(request)
 
 
 @admin.register(CategoriaGaleria)

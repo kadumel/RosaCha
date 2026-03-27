@@ -9,7 +9,7 @@
         </div>
         <div class="cta-actions">
             <a class="btn btn-dark" href="{% url 'core:contato' %}">Solicitar orçamento</a>
-            <a class="btn btn-light" href="https://wa.me/351932079149" target="_blank" rel="noopener">
+            <a class="btn btn-light" href="{{ company_info.whatsapp_url }}" target="_blank" rel="noopener">
                 Falar no WhatsApp
                 <svg class="whatsapp-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="11" fill="#25D366"/>

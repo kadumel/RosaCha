@@ -36,9 +36,11 @@
             <h2>Outros canais</h2>
             <p>Se preferir, fale conosco diretamente pelos canais abaixo.</p>
             <ul>
-                <li><strong>WhatsApp:</strong> <a href="https://wa.me/351932079149" target="_blank" rel="noopener">+351 932 079 149</a></li>
-                <li><strong>E-mail:</strong> <a href="mailto:contato@rosachacatering.pt">contato@rosachacatering.pt</a></li>
-                <li><strong>Instagram:</strong> <a href="https://instagram.com" target="_blank" rel="noopener">@rosacha</a></li>
+                <li><strong>WhatsApp:</strong> <a href="{{ company_info.whatsapp_url }}" target="_blank" rel="noopener">{{ company_info.telefone_whatsapp }}</a></li>
+                <li><strong>E-mail:</strong> <a href="mailto:{{ company_info.email_contato }}">{{ company_info.email_contato }}</a></li>
+                <li><strong>Instagram:</strong> <a href="{{ company_info.instagram_url }}" target="_blank" rel="noopener">{{ company_info.instagram_usuario }}</a></li>
+                <li><strong>Facebook:</strong> <a href="{{ company_info.facebook_url }}" target="_blank" rel="noopener">{{ company_info.facebook_usuario }}</a></li>
+                <li><strong>TikTok:</strong> <a href="{{ company_info.tiktok_url }}" target="_blank" rel="noopener">{{ company_info.tiktok_usuario }}</a></li>
             </ul>
             <p class="small-note">Atendimento em horário comercial, com retorno cuidadoso e personalizado.</p>
         </aside>
