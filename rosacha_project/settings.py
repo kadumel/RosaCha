@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+import shutil
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -179,8 +180,23 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
 MEDIA_ROOT = Path(os.getenv('MEDIA_ROOT', str(BASE_DIR / 'media')))
-MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
+try:
+    MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
+except OSError:
+    MEDIA_ROOT = BASE_DIR / 'media'
+    MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
 SERVE_MEDIA = env_bool('SERVE_MEDIA', True)
+MEDIA_SOURCE_ROOT = BASE_DIR / 'media'
+SYNC_MEDIA_FROM_SOURCE = env_bool('SYNC_MEDIA_FROM_SOURCE', True)
+
+if SYNC_MEDIA_FROM_SOURCE and MEDIA_SOURCE_ROOT.exists() and MEDIA_SOURCE_ROOT != MEDIA_ROOT:
+    for source_file in MEDIA_SOURCE_ROOT.rglob('*'):
+        if not source_file.is_file():
+            continue
+        target_file = MEDIA_ROOT / source_file.relative_to(MEDIA_SOURCE_ROOT)
+        target_file.parent.mkdir(parents=True, exist_ok=True)
+        if not target_file.exists():
+            shutil.copy2(source_file, target_file)
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
